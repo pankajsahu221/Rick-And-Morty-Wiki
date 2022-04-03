@@ -1,3 +1,9 @@
+## Rick and Morty Wiki - A website to get details of all the characters, locations and episodes with filters.
+
+Try it now.
+
+https://rickandmortywikiapp.netlify.app/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
