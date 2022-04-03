@@ -1,49 +1,90 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
-import Header from "./components/ui/Header";
-import CharacterGrid from "./components/characters/CharacterGrid";
-import Search from "./components/ui/Search";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap";
+import Filters from "./components/Filters/Filters";
+import Cards from "./components/Cards/Cards";
+import Pagination from "./components/Pagination/Pagination";
+import Search from "./components/Search/Search";
+import Navbar from "./components/Navbar/Navbar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Episodes from "./Pages/Episodes";
+import Location from "./Pages/Location";
+import CardDetails from "./components/Cards/CardDetails";
 
 function App() {
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [query, setQuery] = useState("");
-
-  useEffect(() => {
-    const getData = () => {
-      // fetch("charactersData.json", {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Accept: "application/json"
-      //   }
-      // })
-
-      fetch(`https://breakingbadapi.com/api/characters?name=${query}`)
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(myJson) {
-          // console.log(myJson);
-          setItems(myJson);
-          setIsLoading(false);
-        });
-    };
-
-    getData();
-  }, [query]);
-
-  const getQuery = value => {
-    setQuery(value);
-  };
-
   return (
-    <div className="container">
-      <Header />
-      <Search getQuery={getQuery} />
-      <CharacterGrid isLoading={isLoading} items={items} />
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+      </div>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/episodes" element={<Episodes />} />
+        <Route path="/location" element={<Location />} />
+        <Route path="/:id" element={<CardDetails />} />
+        <Route path="/episodes/:id" element={<CardDetails />} />
+        <Route path="/location/:id" element={<CardDetails />} />
+      </Routes>
+    </Router>
   );
 }
+
+const Home = () => {
+  let [pageNumber, setPageNumber] = useState(1);
+  let [search, setSearch] = useState("");
+  let [status, setStatus] = useState("");
+  let [gender, setGender] = useState("");
+  let [species, setSpecies] = useState("");
+
+  let [fetchedData, setFetchedData] = useState([]);
+  let { info, results } = fetchedData;
+
+  let api = `https://rickandmortyapi.com/api/character?page=${pageNumber}&name=${search}&status=${status}&gender=${gender}&species=${species}`;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let response = await axios.get(api);
+      // console.log(api);
+      // console.log("api data => ", response.data);
+      setFetchedData(response.data);
+    };
+
+    fetchData();
+  }, [api]);
+
+  return (
+    <div className="App">
+      <h1 className="text-center mb-4">Characters</h1>
+
+      <Search setSearch={setSearch} setPageNumber={setPageNumber} />
+
+      <div className="container">
+        <div className="row">
+          {/* <div className="col-3"> */}
+          <Filters
+            setStatus={setStatus}
+            setGender={setGender}
+            setSpecies={setSpecies}
+            setPageNumber={setPageNumber}
+          />
+          {/* </div> */}
+          <div className="col-lg-8 col-12">
+            <div className="row">
+              <Cards page="/" results={results} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <Pagination
+        info={info}
+        pageNumber={pageNumber}
+        setPageNumber={setPageNumber}
+      />
+    </div>
+  );
+};
 
 export default App;
