@@ -1,4 +1,10 @@
-## Rick and Morty Wiki - A website to get details of all the characters, locations and episodes with filters.
+## Rick and Morty Wiki - A website to get details of all the characters, locations, and episodes with filters.
+
+* Get the details of the Rick And Morty TV Series.
+* User can see the list of all characters.
+* Filters character details like status, species, and gender.
+* User can also see characters based on Episode no. and Locations and particular character's detail.
+
 
 Try it now.
 
