@@ -4,6 +4,12 @@ Try it now.
 
 https://rickandmortywikiapp.netlify.app/
 
+![screenshot](https://github.com/pankajsahu221/Rick-And-Morty-Wiki/blob/master/public/rickshot.png)
+
+![screenshot](https://github.com/pankajsahu221/Rick-And-Morty-Wiki/blob/master/public/rickshot2.png)
+
+![screenshot](https://github.com/pankajsahu221/Rick-And-Morty-Wiki/blob/master/public/rickshot3.png)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
